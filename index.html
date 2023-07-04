@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inscription Mupis</title>
-  <link type="text/css" rel="stylesheet" href="./main.css">
+  <link type="text/css" rel="stylesheet" href="./main.css">7
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/21.0.0/tween.umd.js"></script>
 
 
@@ -48,12 +48,12 @@ manager.onError = function ( url ) {
   renderer.setClearColor( 0xEDEDED, 0 );
     
   //camera
-  var fov = 25;
+  var fov = 20;
   var aspect = 2;  // the canvas default
   var near = 1;
   var far = 50;
   var camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-  camera.position.set(0, 15, 25);
+  camera.position.set(0, 8, 30);
     
   //controlo orbita
   var controls = new OrbitControls(camera, canvas);
@@ -118,34 +118,35 @@ manager.onError = function ( url ) {
 
 //lupa
 
-//var lupa;
+var lupa;
 
-//{
-//  var objLoader = new OBJLoader(manager);
-//  var mat = new THREE.MeshPhysicalMaterial({
-//    color: 0xffffff,
-//    side: THREE.DoubleSide,
-//    transparent: true,
-//     opacity: 1,
-//     transmission: 1,
-//     reflectivity: 1,
-//     roughness: 0,
-//     metalness: 0.0,
-//     ior: 1.2,
-//     thickness: 5
-//   });
+{
+  var objLoader = new OBJLoader(manager);
+  var mat = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 1,
+    transmission: 1,
+    reflectivity: 1,
+    roughness: 0,
+    metalness: 0.0,
+    ior: 1.2,
+    thickness: 5
+  });
 
-//  objLoader.load('LUPA.obj', function (obj) {
-//    obj.traverse(function (child) {
-//      if (child instanceof THREE.Mesh) {
-//        child.material = mat;
-//      }
-//});
+  objLoader.load('LUPA.obj', function (obj) {
+    obj.traverse(function (child) {
+      if (child instanceof THREE.Mesh) {
+        child.material = mat;
+      }
+    });
 
-//    lupa = obj;
-//    scene.add(lupa);
-//  });
-//}
+    lupa = obj;
+    scene.add(lupa);
+    lupa.rotation.y = Math.PI;
+  });
+}
 
 // Posição e rotação RANDOM
 
@@ -530,28 +531,23 @@ function tapHandler(event) {
 
   if (elapsedTime >= 10 && elapsedTime <= 11) {
     
-//   if(lupa) lupa.rotation.y -= Math.random()*0.05;
-	  rotatividade()
+  if(lupa) lupa.rotation.y -= Math.random()*0.05;
 
 } else if (elapsedTime >= 15 && elapsedTime <= 16) {
 
- // if(lupa) lupa.rotation.y += Math.random()*0.1;
-	  rotatividade()
+  if(lupa) lupa.rotation.y += Math.random()*0.1;
 
 } else if (elapsedTime >= 17 && elapsedTime <= 18) {
 
-//if(lupa) lupa.rotation.y -= Math.random()*0.1;
-	  rotatividade()
+if(lupa) lupa.rotation.y -= Math.random()*0.1;
 
 } else if (elapsedTime >= 19 && elapsedTime <= 20) {
 
-//if(lupa) lupa.rotation.y -= Math.random()*0.1;
-	  rotatividade()
+if(lupa) lupa.rotation.y -= Math.random()*0.1;
 
 } else if (elapsedTime >= 21) {
 
-//if(lupa) lupa.rotation.y += Math.random()*0.1;
-	  rotatividade()
+if(lupa) lupa.rotation.y += Math.random()*0.1;
 
 }
 
