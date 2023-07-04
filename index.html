@@ -4,8 +4,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inscription</title>
+  <title>Inscription Mupis</title>
   <link type="text/css" rel="stylesheet" href="./main.css">
+  <script src="./lib/three.min.js"></script>
+    <script src="./lib/gltf.loader.js"></script>
+    <script src="./lib/TweenMax.min.js"></script>
+    <script src="./lib/OrbitControls.js"></script>
+    <script src="./lib/dat.gui.min.js"></script>
+    <script src="./lib/Stats.min.js"></script>
+    <script src="../dist/modifiers.min.js"></script>
+    <script src="./js/tmm.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/21.0.0/tween.umd.js"></script>
+
+
   <script  type="importmap">{
     "imports": {
       "three": "https://threejs.org/build/three.module.js"
@@ -51,8 +62,6 @@ manager.onError = function ( url ) {
   var far = 50;
   var camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
   camera.position.set(0, 10, 20);
-
-
     
   //controlo orbita
   var controls = new OrbitControls(camera, canvas);
@@ -115,57 +124,94 @@ manager.onError = function ( url ) {
   
  
 
-//   //lupa
+//lupa
 
-	  var lupa;
-  {
-    var objLoader = new OBJLoader(manager);
-    var mat = new THREE.MeshPhysicalMaterial({});
-mat.reflectivity = 0
-mat.transmission = 1
-mat.roughness = 0.2
-mat.metalness = 0
-mat.clearcoat = 0.3
-mat.clearcoatRoughness = 0.25
-mat.color = new THREE.Color(0xffffff)
-mat.ior = 1.2
-mat.thickness = 5
+var lupa;
 
-objLoader.load('LUPA.obj', function (obj) {
-        obj.traverse(function (child) {
+{
+  var objLoader = new OBJLoader(manager);
+  var mat = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    side: THREE.DoubleSide,
+    transparent: true,
+    opacity: 1,
+    transmission: 1,
+    reflectivity: 1,
+    roughness: 0,
+    metalness: 0.0,
+    ior: 1.2,
+    thickness: 5
+  });
 
-            if (child instanceof THREE.Mesh) {
-                child.material = mat;
-                mat.side = THREE.DoubleSide;
-            }
-
-        });
-        lupa = obj;
-        scene.add(lupa);
-      lupa.rotation.y = Math.PI;
-      
+  objLoader.load('LUPA.obj', function (obj) {
+    obj.traverse(function (child) {
+      if (child instanceof THREE.Mesh) {
+        child.material = mat;
+      }
     });
-    }
+
+    lupa = obj;
+    scene.add(lupa);
+    lupa.rotation.y = Math.PI;
+  });
+}
+
+// Posição e rotação RANDOM
+
+function randomizePositionAndRotation(busto) {
+  const targetPosition = new THREE.Vector3(
+    (Math.random() - 0.5) * 4,
+    (Math.random() - 0.5) * 8,
+    (Math.random() - 0.5) * 4
+  );
+
+  const targetRotation = new THREE.Quaternion();
+  targetRotation.setFromEuler(
+    new THREE.Euler(
+      Math.random() * Math.PI * 2,
+      Math.random() * Math.PI * 2,
+      Math.random() * Math.PI * 2,
+      'XYZ'
+    )
+  );
+
+  // Use Tween.js for smooth position transition
+  new TWEEN.Tween(busto.position)
+    .to(targetPosition, 3000) // Transition duration: 1000ms (adjust as needed)
+    .easing(TWEEN.Easing.Quadratic.Out) // Easing function for smooth transition
+    .start();
+
+  // Use Tween.js for smooth rotation transition
+  new TWEEN.Tween(busto.rotation)
+    .to({ x: targetRotation.x, y: targetRotation.y, z: targetRotation.z, w: targetRotation.w }, 3000) // Transition duration: 1000ms (adjust as needed)
+    .easing(TWEEN.Easing.Quadratic.Out) // Easing function for smooth transition
+    .start();
+}
+
 
     //bustos
 
     const loader = new GLTFLoader();
+  
 
-  var busto83;
+    var busto83;
 
              loader.load('./BUSTO_83.glb', function (glb) {
+  //busto83 = glb.scene;
   busto83 = glb.scene;
 
   // Traverse through all the meshes in the model and set their material's side property
   busto83.traverse(function (child) {
     if (child.isMesh) {
       child.material.side = THREE.DoubleSide; // Set material to double-sided
+
     }
   });
 
-  busto83.visible = false;
   scene.add(busto83);
+
 });
+
 
 var busto84;
 
@@ -179,8 +225,8 @@ var busto84;
     }
   });
 
-  busto84.visible = false;
   scene.add(busto84);
+  
 });
 
 var busto85;
@@ -195,7 +241,6 @@ var busto85;
     }
   });
 
-  busto85.visible = false;
   scene.add(busto85);
 });
 
@@ -211,7 +256,6 @@ var busto86;
     }
   });
 
-  busto86.visible = false;
   scene.add(busto86);
 });
 
@@ -227,7 +271,7 @@ loader.load('./BUSTO_87.glb', function (glb) {
     }
   });
 
-  busto87.visible = false;
+  randomizePositionAndRotation(busto87);
   scene.add(busto87);
 });
 
@@ -243,7 +287,7 @@ loader.load('./BUSTO_88.glb', function (glb) {
     }
   });
 
-  busto88.visible = false;
+
   scene.add(busto88);
 });
 
@@ -259,7 +303,6 @@ loader.load('./BUSTO_93.glb', function (glb) {
     }
   });
 
-  busto93.visible = false;
   scene.add(busto93);
 });
 
@@ -275,7 +318,6 @@ loader.load('./BUSTO_94.glb', function (glb) {
     }
   });
 
-  busto94.visible = false;
   scene.add(busto94);
 });
 
@@ -291,7 +333,6 @@ loader.load('./BUSTO_95.glb', function (glb) {
     }
   });
 
-  busto95.visible = false;
   scene.add(busto95);
 });
 
@@ -307,7 +348,6 @@ loader.load('./BUSTO_96.glb', function (glb) {
     }
   });
 
-  busto96.visible = true;
   scene.add(busto96);
 });
 
@@ -323,7 +363,7 @@ loader.load('./BUSTO_97.glb', function (glb) {
     }
   });
 
-  busto97.visible = false;
+
   scene.add(busto97);
 });
 
@@ -339,7 +379,7 @@ loader.load('./BUSTO_99.glb', function (glb) {
     }
   });
 
-  busto99.visible = false;
+
   scene.add(busto99);
 });
 
@@ -355,7 +395,7 @@ loader.load('./BUSTO_100.glb', function (glb) {
     }
   });
 
-  busto100.visible = false;
+
   scene.add(busto100);
 });
 
@@ -371,7 +411,7 @@ loader.load('./BUSTO_101.glb', function (glb) {
     }
   });
 
-  busto101.visible = false;
+
   scene.add(busto101);
 });
 
@@ -387,7 +427,7 @@ loader.load('./BUSTO_102.glb', function (glb) {
     }
   });
 
-  busto102.visible = false;
+
   scene.add(busto102);
 });
 
@@ -403,7 +443,7 @@ loader.load('./BUSTO_107.glb', function (glb) {
     }
   });
 
-  busto107.visible = false;
+  
   scene.add(busto107);
 });
 
@@ -411,318 +451,29 @@ loader.load('./BUSTO_107.glb', function (glb) {
 
   //Rotatividade dos modelos
 
-  var state = Math.floor(Math.random() * 16);
-
   var rotatividade = function (event) {
-    state = Math.floor(Math.random() * 16);
+  randomizePositionAndRotation(busto84);
+  randomizePositionAndRotation(busto85);
+  randomizePositionAndRotation(busto86);
+  randomizePositionAndRotation(busto87);
+  randomizePositionAndRotation(busto88);
+  randomizePositionAndRotation(busto93);
+  randomizePositionAndRotation(busto94);
+  randomizePositionAndRotation(busto95);
+  randomizePositionAndRotation(busto96);
+  randomizePositionAndRotation(busto97);
+  randomizePositionAndRotation(busto99);
+  randomizePositionAndRotation(busto100);
+  randomizePositionAndRotation(busto101);
+  randomizePositionAndRotation(busto102);
+  randomizePositionAndRotation(busto107);
+  randomizePositionAndRotation(busto83);
 
-    if (state == 1) {
-
-   
-    busto83.visible = false;
-    busto84.visible = true;
-    busto85.visible = false;
-    busto86.visible = false;
-    busto87.visible = false;
-    busto88.visible = false;
-    busto93.visible = false;
-    busto94.visible = false;
-    busto95.visible = false;
-    busto96.visible = false;
-    busto97.visible = false;
-    busto99.visible = false;
-    busto100.visible = false;
-    busto101.visible = false;
-    busto102.visible = false;
-    busto107.visible = false;
-
-  } else if (state == 2) {
-    
-    busto83.visible = false;
-    busto84.visible = false;
-    busto85.visible = true;
-    busto86.visible = false;
-    busto87.visible = false;
-    busto88.visible = false;
-    busto93.visible = false;
-    busto94.visible = false;
-    busto95.visible = false;
-    busto96.visible = false;
-    busto97.visible = false;
-    busto99.visible = false;
-    busto100.visible = false;
-    busto101.visible = false;
-    busto102.visible = false;
-    busto107.visible = false;
-
-  } else if (state == 3) {
-    
-    busto83.visible = false;
-    busto84.visible = false;
-    busto85.visible = false;
-    busto86.visible = true;
-    busto87.visible = false;
-    busto88.visible = false;
-    busto93.visible = false;
-    busto94.visible = false;
-    busto95.visible = false;
-    busto96.visible = false;
-    busto97.visible = false;
-    busto99.visible = false;
-    busto100.visible = false;
-    busto101.visible = false;
-    busto102.visible = false;
-    busto107.visible = false;
-
-  } else if (state == 4) {
-    
-    busto83.visible = false;
-    busto84.visible = false;
-    busto85.visible = false;
-    busto86.visible = false;
-    busto87.visible = true;
-    busto88.visible = false;
-    busto93.visible = false;
-    busto94.visible = false;
-    busto95.visible = false;
-    busto96.visible = false;
-    busto97.visible = false;
-    busto99.visible = false;
-    busto100.visible = false;
-    busto101.visible = false;
-    busto102.visible = false;
-    busto107.visible = false;
-
-  } else if (state == 5) {
-    
-    busto83.visible = false;
-    busto84.visible = false;
-    busto85.visible = false;
-    busto86.visible = false;
-    busto87.visible = false;
-    busto88.visible = true;
-    busto93.visible = false;
-    busto94.visible = false;
-    busto95.visible = false;
-    busto96.visible = false;
-    busto97.visible = false;
-    busto99.visible = false;
-    busto100.visible = false;
-    busto101.visible = false;
-    busto102.visible = false;
-    busto107.visible = false;
-
-  } else if (state == 6) {
-   
-    busto83.visible = false;
-    busto84.visible = false;
-    busto85.visible = false;
-    busto86.visible = false;
-    busto87.visible = false;
-    busto88.visible = false;
-    busto93.visible = true;
-    busto94.visible = false;
-    busto95.visible = false;
-    busto96.visible = false;
-    busto97.visible = false;
-    busto99.visible = false;
-    busto100.visible = false;
-    busto101.visible = false;
-    busto102.visible = false;
-    busto107.visible = false;
-
-  } else if (state == 7) {
-    
-    busto83.visible = false;
-    busto84.visible = false;
-    busto85.visible = false;
-    busto86.visible = false;
-    busto87.visible = false;
-    busto88.visible = false;
-    busto93.visible = false;
-    busto94.visible = true;
-    busto95.visible = false;
-    busto96.visible = false;
-    busto97.visible = false;
-    busto99.visible = false;
-    busto100.visible = false;
-    busto101.visible = false;
-    busto102.visible = false;
-    busto107.visible = false;
-
-  } else if (state == 8) {
-    
-    busto83.visible = false;
-    busto84.visible = false;
-    busto85.visible = false;
-    busto86.visible = false;
-    busto87.visible = false;
-    busto88.visible = false;
-    busto93.visible = false;
-    busto94.visible = false;
-    busto95.visible = true;
-    busto96.visible = false;
-    busto97.visible = false;
-    busto99.visible = false;
-    busto100.visible = false;
-    busto101.visible = false;
-    busto102.visible = false;
-    busto107.visible = false;
-
-  } else if (state == 9) {
-    
-    busto83.visible = false;
-    busto84.visible = false;
-    busto85.visible = false;
-    busto86.visible = false;
-    busto87.visible = false;
-    busto88.visible = false;
-    busto93.visible = false;
-    busto94.visible = false;
-    busto95.visible = false;
-    busto96.visible = true;
-    busto97.visible = false;
-    busto99.visible = false;
-    busto100.visible = false;
-    busto101.visible = false;
-    busto102.visible = false;
-    busto107.visible = false;
-
-  } else if (state == 10) {
-   
-    busto83.visible = false;
-    busto84.visible = false;
-    busto85.visible = false;
-    busto86.visible = false;
-    busto87.visible = false;
-    busto88.visible = false;
-    busto93.visible = false;
-    busto94.visible = false;
-    busto95.visible = false;
-    busto96.visible = false;
-    busto97.visible = true;
-    busto99.visible = false;
-    busto100.visible = false;
-    busto101.visible = false;
-    busto102.visible = false;
-    busto107.visible = false;
-
-  } else if (state == 11) {
-   
-    busto83.visible = false;
-    busto84.visible = false;
-    busto85.visible = false;
-    busto86.visible = false;
-    busto87.visible = false;
-    busto88.visible = false;
-    busto93.visible = false;
-    busto94.visible = false;
-    busto95.visible = false;
-    busto96.visible = false;
-    busto97.visible = false;
-    busto99.visible = true;
-    busto100.visible = false;
-    busto101.visible = false;
-    busto102.visible = false;
-    busto107.visible = false;
-
-  } else if (state == 12) {
-    
-    busto83.visible = false;
-    busto84.visible = false;
-    busto85.visible = false;
-    busto86.visible = false;
-    busto87.visible = false;
-    busto88.visible = false;
-    busto93.visible = false;
-    busto94.visible = false;
-    busto95.visible = false;
-    busto96.visible = false;
-    busto97.visible = false;
-    busto99.visible = false;
-    busto100.visible = true;
-    busto101.visible = false;
-    busto102.visible = false;
-    busto107.visible = false;
-
-  } else if (state == 13) {
-    
-    busto83.visible = false;
-    busto84.visible = false;
-    busto85.visible = false;
-    busto86.visible = false;
-    busto87.visible = false;
-    busto88.visible = false;
-    busto93.visible = false;
-    busto94.visible = false;
-    busto95.visible = false;
-    busto96.visible = false;
-    busto97.visible = false;
-    busto99.visible = false;
-    busto100.visible = false;
-    busto101.visible = true;
-    busto102.visible = false;
-    busto107.visible = false;
-    
-  } else if (state == 14) {
-   
-    busto83.visible = false;
-    busto84.visible = false;
-    busto85.visible = false;
-    busto86.visible = false;
-    busto87.visible = false;
-    busto88.visible = false;
-    busto93.visible = false;
-    busto94.visible = false;
-    busto95.visible = false;
-    busto96.visible = false;
-    busto97.visible = false;
-    busto99.visible = false;
-    busto100.visible = false;
-    busto101.visible = false;
-    busto102.visible = true;
-    busto107.visible = false;
-
-  } else if (state == 15) {
-
-    busto83.visible = false;
-    busto84.visible = false;
-    busto85.visible = false;
-    busto86.visible = false;
-    busto87.visible = false;
-    busto88.visible = false;
-    busto93.visible = false;
-    busto94.visible = false;
-    busto95.visible = false;
-    busto96.visible = false;
-    busto97.visible = false;
-    busto99.visible = false;
-    busto100.visible = false;
-    busto101.visible = false;
-    busto102.visible = false;
-    busto107.visible = true;
-
-  } else if (state >= 16) {
-    state = 0;
-   
-    busto83.visible = true;
-    busto84.visible = false;
-    busto85.visible = false;
-    busto86.visible = false;
-    busto87.visible = false;
-    busto88.visible = false;
-    busto93.visible = false;
-    busto94.visible = false;
-    busto95.visible = false;
-    busto96.visible = false;
-    busto97.visible = false;
-    busto99.visible = false;
-    busto100.visible = false;
-    busto101.visible = false;
-    busto102.visible = false;
-    busto107.visible = false;
-  }
+  randomizePositionAndRotation(lightR);
+randomizePositionAndRotation(lightB);
+randomizePositionAndRotation(lightG);
 };
+
 
 
 
@@ -835,8 +586,9 @@ if(lupa) lupa.rotation.y += Math.random()*0.1;
     }
     controls.update();
 
+    TWEEN.update();
     
-    console.log(state);
+    //console.log(state);
 
     requestAnimationFrame(animate);
     
