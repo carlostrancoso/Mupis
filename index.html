@@ -135,18 +135,17 @@ manager.onError = function ( url ) {
 //     thickness: 5
 //   });
 
-  objLoader.load('LUPA.obj', function (obj) {
-    obj.traverse(function (child) {
-      if (child instanceof THREE.Mesh) {
-        child.material = mat;
-      }
-    });
+//  objLoader.load('LUPA.obj', function (obj) {
+//    obj.traverse(function (child) {
+//      if (child instanceof THREE.Mesh) {
+//        child.material = mat;
+//      }
+//});
 
-    lupa = obj;
-    scene.add(lupa);
-    lupa.rotation.y = Math.PI;
-  });
-}
+//    lupa = obj;
+//    scene.add(lupa);
+//  });
+//}
 
 // Posição e rotação RANDOM
 
