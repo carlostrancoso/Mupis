@@ -118,22 +118,22 @@ manager.onError = function ( url ) {
 
 //lupa
 
-var lupa;
+//var lupa;
 
-{
-  var objLoader = new OBJLoader(manager);
-  var mat = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
-    side: THREE.DoubleSide,
-    transparent: true,
-    opacity: 1,
-    transmission: 1,
-    reflectivity: 1,
-    roughness: 0,
-    metalness: 0.0,
-    ior: 1.2,
-    thickness: 5
-  });
+//{
+//  var objLoader = new OBJLoader(manager);
+//  var mat = new THREE.MeshPhysicalMaterial({
+//    color: 0xffffff,
+//    side: THREE.DoubleSide,
+//    transparent: true,
+//     opacity: 1,
+//     transmission: 1,
+//     reflectivity: 1,
+//     roughness: 0,
+//     metalness: 0.0,
+//     ior: 1.2,
+//     thickness: 5
+//   });
 
   objLoader.load('LUPA.obj', function (obj) {
     obj.traverse(function (child) {
@@ -531,23 +531,28 @@ function tapHandler(event) {
 
   if (elapsedTime >= 10 && elapsedTime <= 11) {
     
-  if(lupa) lupa.rotation.y -= Math.random()*0.05;
+//   if(lupa) lupa.rotation.y -= Math.random()*0.05;
+	  rotatividade()
 
 } else if (elapsedTime >= 15 && elapsedTime <= 16) {
 
-  if(lupa) lupa.rotation.y += Math.random()*0.1;
+ // if(lupa) lupa.rotation.y += Math.random()*0.1;
+	  rotatividade()
 
 } else if (elapsedTime >= 17 && elapsedTime <= 18) {
 
-if(lupa) lupa.rotation.y -= Math.random()*0.1;
+//if(lupa) lupa.rotation.y -= Math.random()*0.1;
+	  rotatividade()
 
 } else if (elapsedTime >= 19 && elapsedTime <= 20) {
 
-if(lupa) lupa.rotation.y -= Math.random()*0.1;
+//if(lupa) lupa.rotation.y -= Math.random()*0.1;
+	  rotatividade()
 
 } else if (elapsedTime >= 21) {
 
-if(lupa) lupa.rotation.y += Math.random()*0.1;
+//if(lupa) lupa.rotation.y += Math.random()*0.1;
+	  rotatividade()
 
 }
 
