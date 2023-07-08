@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="PT">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inscription Mupis</title>
-  <link type="text/css" rel="stylesheet" href="./main.css">7
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/21.0.0/tween.umd.js"></script>
-
+  <link type="text/css" rel="stylesheet" href="./main.css">
 
   <script  type="importmap">{
     "imports": {
@@ -15,7 +13,9 @@
     }
   }</script><!-- Remove this when import maps will be widely supported -->
   <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
-  <script type="module">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/21.0.0/tween.umd.js"></script>
+   
+   <script type="module">
     
    //bibliotecas
    import * as THREE from 'three';
@@ -23,6 +23,7 @@
    import {OBJLoader} from 'https://threejs.org/examples/jsm/loaders/OBJLoader.js';
    import {MTLLoader} from 'https://threejs.org/examples/jsm/loaders/MTLLoader.js';
    import { GLTFLoader } from 'https://threejs.org/examples/jsm/loaders/GLTFLoader.js';
+
 
   //loading screen
 
@@ -145,6 +146,7 @@ var lupa;
     lupa = obj;
     scene.add(lupa);
     lupa.rotation.y = Math.PI;
+    lupa.visible = false;
   });
 }
 
@@ -169,305 +171,71 @@ function randomizePositionAndRotation(busto) {
 
   // Use Tween.js for smooth position transition
   new TWEEN.Tween(busto.position)
-    .to(targetPosition, 3000) // Transition duration: 1000ms (adjust as needed)
+    .to(targetPosition, 3000) // Transition duration: 3000ms (adjust as needed)
     .easing(TWEEN.Easing.Quadratic.Out) // Easing function for smooth transition
     .start();
 
   // Use Tween.js for smooth rotation transition
   new TWEEN.Tween(busto.rotation)
-    .to({ x: targetRotation.x, y: targetRotation.y, z: targetRotation.z, w: targetRotation.w }, 3000) // Transition duration: 1000ms (adjust as needed)
+    .to({ x: targetRotation.x, y: targetRotation.y, z: targetRotation.z, w: targetRotation.w }, 3000) // Transition duration: 3000ms (adjust as needed)
     .easing(TWEEN.Easing.Quadratic.Out) // Easing function for smooth transition
     .start();
 }
 
+//bustos
 
-    //bustos
+const loader = new GLTFLoader();
+const bustoFiles = [
+  'BUSTO_1.glb',
+  'BUSTO_2.glb',
+  'BUSTO_3.glb',
+  'BUSTO_4.glb',
+  'BUSTO_5.glb',
+  'BUSTO_6.glb',
+  'BUSTO_7.glb',
+  'BUSTO_8.glb',
+  'BUSTO_9.glb',
+  'BUSTO_10.glb',
+  'BUSTO_11.glb',
+  'BUSTO_12.glb',
+  'BUSTO_13.glb',
+  'BUSTO_14.glb',
+  'BUSTO_15.glb',
+  'BUSTO_16.glb'
+];
 
-    const loader = new GLTFLoader();
-  
+const bustos = [];
 
-    var busto83;
+function loadBustoModel(file, index) {
+  loader.load(file, function (glb) {
+    const busto = glb.scene;
 
-             loader.load('./BUSTO_83.glb', function (glb) {
-  //busto83 = glb.scene;
-  busto83 = glb.scene;
+    busto.traverse(function (child) {
+      if (child.isMesh) {
+        child.material.side = THREE.DoubleSide; // Set material to double-sided
+      }
+    });
 
-  // Traverse through all the meshes in the model and set their material's side property
-  busto83.traverse(function (child) {
-    if (child.isMesh) {
-      child.material.side = THREE.DoubleSide; // Set material to double-sided
-
-    }
+    randomizePositionAndRotation(busto);
+    scene.add(busto);
+    bustos[index] = busto;
   });
+}
 
-  scene.add(busto83);
-
+bustoFiles.forEach((file, index) => {
+  const sequencialNumber = index + 1;
+  const fileName = `BUSTO_${sequencialNumber}.glb`;
+  loadBustoModel(fileName, index);
 });
 
+//Rotatividade dos modelos
 
-var busto84;
-
-             loader.load('./BUSTO_84.glb', function (glb) {
-  busto84 = glb.scene;
-
-  // Traverse through all the meshes in the model and set their material's side property
-  busto84.traverse(function (child) {
-    if (child.isMesh) {
-      child.material.side = THREE.DoubleSide; // Set material to double-sided
-    }
-  });
-
-  scene.add(busto84);
-  
-});
-
-var busto85;
-
-             loader.load('./BUSTO_85.glb', function (glb) {
-  busto85 = glb.scene;
-
-  // Traverse through all the meshes in the model and set their material's side property
-  busto85.traverse(function (child) {
-    if (child.isMesh) {
-      child.material.side = THREE.DoubleSide; // Set material to double-sided
-    }
-  });
-
-  scene.add(busto85);
-});
-
-var busto86;
-
-             loader.load('./BUSTO_86.glb', function (glb) {
-  busto86 = glb.scene;
-
-  // Traverse through all the meshes in the model and set their material's side property
-  busto86.traverse(function (child) {
-    if (child.isMesh) {
-      child.material.side = THREE.DoubleSide; // Set material to double-sided
-    }
-  });
-
-  scene.add(busto86);
-});
-
-var busto87;
-
-loader.load('./BUSTO_87.glb', function (glb) {
-  busto87 = glb.scene;
-
-  // Traverse through all the meshes in the model and set their material's side property
-  busto87.traverse(function (child) {
-    if (child.isMesh) {
-      child.material.side = THREE.DoubleSide; // Set material to double-sided
-    }
-  });
-
-  randomizePositionAndRotation(busto87);
-  scene.add(busto87);
-});
-
-var busto88;
-
-loader.load('./BUSTO_88.glb', function (glb) {
-  busto88 = glb.scene;
-
-  // Traverse through all the meshes in the model and set their material's side property
-  busto88.traverse(function (child) {
-    if (child.isMesh) {
-      child.material.side = THREE.DoubleSide; // Set material to double-sided
-    }
-  });
-
-
-  scene.add(busto88);
-});
-
-var busto93;
-
-loader.load('./BUSTO_93.glb', function (glb) {
-  busto93 = glb.scene;
-
-  // Traverse through all the meshes in the model and set their material's side property
-  busto93.traverse(function (child) {
-    if (child.isMesh) {
-      child.material.side = THREE.DoubleSide; // Set material to double-sided
-    }
-  });
-
-  scene.add(busto93);
-});
-
-var busto94;
-
-loader.load('./BUSTO_94.glb', function (glb) {
-  busto94 = glb.scene;
-
-  // Traverse through all the meshes in the model and set their material's side property
-  busto94.traverse(function (child) {
-    if (child.isMesh) {
-      child.material.side = THREE.DoubleSide; // Set material to double-sided
-    }
-  });
-
-  scene.add(busto94);
-});
-
-var busto95;
-
-loader.load('./BUSTO_95.glb', function (glb) {
-  busto95 = glb.scene;
-
-  // Traverse through all the meshes in the model and set their material's side property
-  busto95.traverse(function (child) {
-    if (child.isMesh) {
-      child.material.side = THREE.DoubleSide; // Set material to double-sided
-    }
-  });
-
-  scene.add(busto95);
-});
-
-var busto96;
-
-loader.load('./BUSTO_96.glb', function (glb) {
-  busto96 = glb.scene;
-
-  // Traverse through all the meshes in the model and set their material's side property
-  busto96.traverse(function (child) {
-    if (child.isMesh) {
-      child.material.side = THREE.DoubleSide; // Set material to double-sided
-    }
-  });
-
-  scene.add(busto96);
-});
-
-var busto97;
-
-loader.load('./BUSTO_97.glb', function (glb) {
-  busto97 = glb.scene;
-
-  // Traverse through all the meshes in the model and set their material's side property
-  busto97.traverse(function (child) {
-    if (child.isMesh) {
-      child.material.side = THREE.DoubleSide; // Set material to double-sided
-    }
-  });
-
-
-  scene.add(busto97);
-});
-
-var busto99;
-
-loader.load('./BUSTO_99.glb', function (glb) {
-  busto99 = glb.scene;
-
-  // Traverse through all the meshes in the model and set their material's side property
-  busto99.traverse(function (child) {
-    if (child.isMesh) {
-      child.material.side = THREE.DoubleSide; // Set material to double-sided
-    }
-  });
-
-
-  scene.add(busto99);
-});
-
-var busto100;
-
-loader.load('./BUSTO_100.glb', function (glb) {
-  busto100 = glb.scene;
-
-  // Traverse through all the meshes in the model and set their material's side property
-  busto100.traverse(function (child) {
-    if (child.isMesh) {
-      child.material.side = THREE.DoubleSide; // Set material to double-sided
-    }
-  });
-
-
-  scene.add(busto100);
-});
-
-var busto101;
-
-loader.load('./BUSTO_101.glb', function (glb) {
-  busto101 = glb.scene;
-
-  // Traverse through all the meshes in the model and set their material's side property
-  busto101.traverse(function (child) {
-    if (child.isMesh) {
-      child.material.side = THREE.DoubleSide; // Set material to double-sided
-    }
-  });
-
-
-  scene.add(busto101);
-});
-
-var busto102;
-
-loader.load('./BUSTO_102.glb', function (glb) {
-  busto102 = glb.scene;
-
-  // Traverse through all the meshes in the model and set their material's side property
-  busto102.traverse(function (child) {
-    if (child.isMesh) {
-      child.material.side = THREE.DoubleSide; // Set material to double-sided
-    }
-  });
-
-
-  scene.add(busto102);
-});
-
-var busto107;
-
-loader.load('./BUSTO_107.glb', function (glb) {
-  busto107 = glb.scene;
-
-  // Traverse through all the meshes in the model and set their material's side property
-  busto107.traverse(function (child) {
-    if (child.isMesh) {
-      child.material.side = THREE.DoubleSide; // Set material to double-sided
-    }
-  });
-
-  
-  scene.add(busto107);
-});
-
-
-
-  //Rotatividade dos modelos
-
-  var rotatividade = function (event) {
-  randomizePositionAndRotation(busto84);
-  randomizePositionAndRotation(busto85);
-  randomizePositionAndRotation(busto86);
-  randomizePositionAndRotation(busto87);
-  randomizePositionAndRotation(busto88);
-  randomizePositionAndRotation(busto93);
-  randomizePositionAndRotation(busto94);
-  randomizePositionAndRotation(busto95);
-  randomizePositionAndRotation(busto96);
-  randomizePositionAndRotation(busto97);
-  randomizePositionAndRotation(busto99);
-  randomizePositionAndRotation(busto100);
-  randomizePositionAndRotation(busto101);
-  randomizePositionAndRotation(busto102);
-  randomizePositionAndRotation(busto107);
-  randomizePositionAndRotation(busto83);
-
+function rotatividade() {
+  bustos.forEach(busto => randomizePositionAndRotation(busto));
   randomizePositionAndRotation(lightR);
-randomizePositionAndRotation(lightB);
-randomizePositionAndRotation(lightG);
-};
-
-
-
+  randomizePositionAndRotation(lightB);
+  randomizePositionAndRotation(lightG);
+}
 
 // formas de interacao
 /* 
@@ -487,156 +255,163 @@ function tapHandler(event) {
  }
  */
 
+const previousButton = document.getElementById('previousButton');
+const nextButton = document.getElementById('nextButton');
+const okButton = document.getElementById('okButton');
 
- const previousButton = document.getElementById('previousButton');
-  const nextButton = document.getElementById('nextButton');
-  const okButton = document.getElementById('okButton');
+previousButton.addEventListener('click', () => {
+  // Handle previous button click event
+  rotatividade();
+  lastRotatividadeTime = performance.now();
+});
 
-  previousButton.addEventListener('click', () => {
-    // Handle previous button click event
-    rotatividade()
-  });
+nextButton.addEventListener('click', () => {
+  // Handle next button click event
+  rotatividade();
+  lastRotatividadeTime = performance.now();
+});
 
-  nextButton.addEventListener('click', () => {
-    // Handle next button click event
-    rotatividade()
-  });
-
-  okButton.addEventListener('click', () => {
-    // Handle close button click event
-    rotatividade()
-  });
+okButton.addEventListener('click', () => {
+  // Handle close button click event
+  rotatividade();
+  lastRotatividadeTime = performance.now();
+});
 
 //redimensionamento da janela
 
-  function resizeRendererToDisplaySize(renderer) {
-    var canvas = renderer.domElement;
-    var width = canvas.clientWidth;
-    var height = canvas.clientHeight;
-    var needResize = canvas.width !== width || canvas.height !== height;
-    if (needResize) {
-      renderer.setSize(width, height, false);
-    }
-    return needResize;
+function resizeRendererToDisplaySize(renderer) {
+  var canvas = renderer.domElement;
+  var width = canvas.clientWidth;
+  var height = canvas.clientHeight;
+  var needResize = canvas.width !== width || canvas.height !== height;
+  if (needResize) {
+    renderer.setSize(width, height, false);
   }
-
-  const clock = new THREE.Clock()
-
-
-
-  //funcao de animacao
- function animate() {
-
-  const elapsedTime = clock.getElapsedTime()%22
-
-  if (elapsedTime >= 10 && elapsedTime <= 11) {
-    
-  if(lupa) lupa.rotation.y -= Math.random()*0.05;
-
-} else if (elapsedTime >= 15 && elapsedTime <= 16) {
-
-  if(lupa) lupa.rotation.y += Math.random()*0.1;
-
-} else if (elapsedTime >= 17 && elapsedTime <= 18) {
-
-if(lupa) lupa.rotation.y -= Math.random()*0.1;
-
-} else if (elapsedTime >= 19 && elapsedTime <= 20) {
-
-if(lupa) lupa.rotation.y -= Math.random()*0.1;
-
-} else if (elapsedTime >= 21) {
-
-if(lupa) lupa.rotation.y += Math.random()*0.1;
-
+  return needResize;
 }
 
-   if(busto83) busto83.rotation.y -= 0.002;    
-   if(busto84) busto84.rotation.y -= 0.002;   
-   if(busto85) busto85.rotation.y += 0.002;   
-   if(busto86) busto86.rotation.y -= 0.002;  
-   if(busto87) busto87.rotation.y -= 0.002;
-   if(busto88) busto88.rotation.y += 0.002;
-   if(busto93) busto93.rotation.y -= 0.002;
-   if(busto94) busto94.rotation.y -= 0.002;
-   if(busto95) busto95.rotation.y += 0.002;
-   if(busto96) busto96.rotation.y += 0.002;
-   if(busto97) busto97.rotation.y -= 0.002;
-   if(busto99) busto99.rotation.y += 0.002;
-   if(busto100) busto100.rotation.y -= 0.002;
-   if(busto101) busto101.rotation.y += 0.002;
-   if(busto102) busto102.rotation.y -= 0.002;
-   if(busto107) busto107.rotation.y += 0.002;
+const clock = new THREE.Clock()
 
- 
-    renderer.render(scene, camera);
+// Variables to track the last time rotatividade was called and the delay
+let lastRotatividadeTime = 0;
+const rotatividadeDelay = 30000; // 30 seconds in milliseconds
 
-    if (resizeRendererToDisplaySize(renderer)) {
-      var canvas = renderer.domElement;
-      camera.aspect = canvas.clientWidth / canvas.clientHeight;
-      camera.updateProjectionMatrix();
-    }
-    controls.update();
+//funcao de animacao
+function animate() {
+  const elapsedTime = clock.getElapsedTime();
 
-    TWEEN.update();
-    
-    //console.log(state);
+  bustos.forEach(busto => {
+    if (busto) busto.rotation.y -= 0.002;
+  });
 
-    requestAnimationFrame(animate);
-    
+  renderer.render(scene, camera);
+
+  if (resizeRendererToDisplaySize(renderer)) {
+    var canvas = renderer.domElement;
+    camera.aspect = canvas.clientWidth / canvas.clientHeight;
+    camera.updateProjectionMatrix();
+  }
+  controls.update();
+
+  TWEEN.update();
+
+  // Check if the delay has passed since the last rotatividade call
+  const currentTime = performance.now();
+  if (currentTime - lastRotatividadeTime >= rotatividadeDelay) {
+    rotatividade();
+    lastRotatividadeTime = performance.now(); ;
+  }
+
+  requestAnimationFrame(animate);
+
 };
 
 animate();
 
+// Language translation
 
+const languageButton = document.getElementById('languageButton');
+let currentLanguage = 'PT';
 
+languageButton.addEventListener('click', () => {
+  if (currentLanguage === 'PT') {
+    translateToEnglish();
+    currentLanguage = 'EN';
+  } else {
+    translateToPortuguese();
+    currentLanguage = 'PT';
+  }
+});
 
-    </script>
+function translateToEnglish() {
+  // Translate elements to English
+  document.documentElement.lang = 'EN';
+  document.title = 'Inscription Mupis Maia';
+  document.querySelector('.message').innerHTML = '<a href="https://carlostrancoso.com/"><h3>Carlos Trancoso</h3></a><h2>Inscription</h2><br><br><img src="orbit.svg"/>&nbsp&nbsp&nbsp<img src="zoom.svg"/><br>Interact by dragging and zooming.<br><br><img src="next.svg"/><br>Click the shuffle button to change the sculpture<br><br><br><img src="language.svg"/><br>Clique no botão PT para mudar o idioma para Português.<br><br>';
+  document.querySelector('.ok').innerHTML = 'OK';
+  document.getElementById('languageButton').innerHTML = 'PT <img src="language.svg"/> ';
+  document.querySelector('.sobreMessage').innerHTML = '<a href="https://carlostrancoso.com/"><h3>Carlos Trancoso</h3></a><h2>Inscription</h2><br><div class="sobreText"><i>Inscription</i> is the outcome of the artistic residency held at <a href="https://goo.gl/maps/h83XrYbAej5rGabY7">Fórum Maia</a> during the <a href="https://bienaldamaia23.pt/">Bienal da Maia 2023</a>.<br>Over a two-week period, individuals actively involved in conceptualizing and producing the Contemporary Art Bienal were photographed and transformed into 3D models, which are showcased as papercraft sculptures. Throughout the five-month duration of the Bienal, these individuals become either permanent or occasional residents of Fórum Maia, engaging in a spontaneous performance with the exhibition. Visitors have the opportunity to witness and interact with these individuals, broadening their perception of the sculptures and establishing connections between real individuals (through general perception), avatar representations (through this site), and the objectified versions (through the sculptures). By participating in this project, individuals embrace an <i>Inscription</i> as a metaphorical expression of the everyday consent demanded by the web, joining a distinctive <i>club</i> associated with the space and time of the Bienal.<br>This exhibition integrates the project <a href="https://carlostrancoso.com/rise-of-trivial/"><i>Rise of trivial</i></a>.<br></div><br/><button class="close" onclick="document.getElementById(\'sobreMsg\').style.visibility = \'hidden\'">Close</button>';
+  const sobreLink = document.querySelector('.topnav-left');
+  sobreLink.getElementsByTagName('a')[0].innerHTML = 'About';
+  const centeredLink = document.querySelector('.topnav-centered');
+  centeredLink.getElementsByTagName('a')[0].innerHTML = 'Instructions';
+}
+
+function translateToPortuguese() {
+  // Translate elements to Portuguese
+  document.documentElement.lang = 'PT';
+  document.title = 'Inscription Maia Mupis';
+  document.querySelector('.message').innerHTML = '<a href="https://carlostrancoso.com/"><h3>Carlos Trancoso</h3></a><h2>Inscription</h2><br><br><img src="orbit.svg"/>&nbsp&nbsp&nbsp<img src="zoom.svg"/><br>Interaja arrastando e ampliando.<br><br><img src="next.svg"/><br>Clique no botão shuffle para alterar a escultura<br><br><br><img src="language.svg"/><br>Click on the EN button to change to English language.<br><br>';
+  document.querySelector('.ok').innerHTML = 'OK';
+  document.getElementById('languageButton').innerHTML = 'EN <img src="language.svg"/> ';
+  document.querySelector('.sobreMessage').innerHTML = '<a href="https://carlostrancoso.com/"><h3>Carlos Trancoso</h3></a><h2>Inscription</h2><br><div class="sobreText"><i>Inscription</i> é o resultado da residência artística realizada no <a href="https://goo.gl/maps/h83XrYbAej5rGabY7">Fórum Maia</a> durante a <a href="https://bienaldamaia23.pt/">Bienal da Maia 2023</a>. Ao longo de um período de duas semanas, pessoas envolvidas ativamente na concepção e produção da Bienal de Arte Contemporânea foram fotografadas e transformadas em modelos 3D, sendo expostas como esculturas em papel. Durante os cinco meses da Bienal, estas pessoas tornam-se residentes permanentes ou ocasionais do Fórum Maia, participando numa performance espontânea com a exposição. Os visitantes têm a oportunidade de testemunhar e interagir com estas pessoas, ampliando a percepção das esculturas e estabelecendo conexões entre pessoas reais (por meio da percepção geral), representações de avatares (por meio deste site) e as versões objetificadas (por meio das esculturas). Ao participar neste projeto, os indivíduos assumem uma <i>Inscrição</i> como expressão metafórica do consentimento diário exigido pela web, ingressando num <i>clube</i> associado ao espaço e tempo da Bienal.<br>Esta exposição integra o projeto <a href="https://carlostrancoso.com/rise-of-trivial/"><i>Rise of trivial</i></a>.<br></div><br/><button class="close" onclick="document.getElementById(\'sobreMsg\').style.visibility = \'hidden\'">Fechar</button>';
+  const sobreLink = document.querySelector('.topnav-left');
+  sobreLink.getElementsByTagName('a')[0].innerHTML = 'Sobre';
+  const centeredLink = document.querySelector('.topnav-centered');
+  centeredLink.getElementsByTagName('a')[0].innerHTML = 'Instruções';
+}
+
+// Initial language setup
+translateToPortuguese();
+
+</script>
 </head>
 
 <body>
 <!-- Botões prev e next -->
 <div class="button-prev">
   <button id="previousButton">
-    <img src="prev.svg" alt="Previous">
+    <img src="prev.svg" alt="Shuffle">
   </button>
 </div>
 
 <div class="button-next">
   <button id="nextButton">
-    <img src="next.svg" alt="Next">
+    <img src="next.svg" alt="Shuffle">
   </button>
 </div>
 
   <!-- Info inicial -->
-  <div class="info">
-    <div class="message"><h3>Inscription</h3><br><br><img src="orbit.svg"/>&nbsp&nbsp&nbsp<img src="zoom.svg"/><br>Interaja arrastando e ampliando.<br><br><img src="language.svg"/><br>Click on EN / PT button to change language.<br><br></div>
-    <br />
+  <div class="info" id="infoMsg">
+    <div class="message"></div>
+    <br/>
     <button class="ok" id="okButton" onclick="this.parentElement.style.display='none';">OK</button>
 </div>
 
+ <!-- Sobre -->
 <div class="sobre" id="sobreMsg">
-  <div class="message">
-    <h3>Inscription</h3>
-    <a href="https://carlostrancoso.com/"><h2>Carlos Trancoso</h2></a>
-
-    <i>Inscription</i> é o resultado da residência artística realizada no <a href="https://goo.gl/maps/h83XrYbAej5rGabY7">Fórum Maia</a> durante a <a href="https://bienaldamaia23.pt/">Bienal da Maia 2023</a>.<br>Ao longo de um período de duas semanas, pessoas envolvidas ativamente na concepção e produção da Bienal de Arte Contemporânea foram fotografadas e transformadas em modelos 3D, sendo expostas como esculturas em papel. Durante os cinco meses da Bienal, estas pessoas tornam-se residentes permanentes ou ocasionais do Fórum Maia, participando numa performance espontânea com a exposição. Os visitantes têm a oportunidade de testemunhar e interagir com estas pessoas, ampliando a percepção das esculturas e estabelecendo conexões entre pessoas reais (por meio da percepção geral), representações de avatares (por meio deste site) e as versões objetificadas (por meio das esculturas). Ao participar neste projeto, os indivíduos assumem uma <i>Inscrição</i> como expressão metafórica do consentimento diário exigido pela web, ingressando num <i>clube</i> associado ao espaço e tempo da Bienal.<br>Esta exposição integra o projeto <a href="https://carlostrancoso.com/rise-of-trivial/"><i>Rise of trivial</i></a>.<br>
+  <div class="sobreMessage"></div>
     <br/>
-    <button class="close" onclick="document.getElementById('sobreMsg').style.visibility = 'hidden'">Fechar</button>    
   </div>
 </div>
-
-
-
-
 
 <!-- Top navigation -->
 <div class="topnav">
 
   <!-- Centered link -->
- <!--  <div class="topnav-centered" onclick="document.getElementById('sobreMsg').style.visibility = 'visible'">
-    <a>About</a>
-  </div> -->
+  <div class="topnav-centered" onclick="document.getElementById('infoMsg').style.display = 'flex'; document.getElementById('sobreMsg').style.visibility = 'hidden';">
+    <a>Instruções</a>
+  </div>
 
   <!-- Left-aligned links (default) -->
   <div class="topnav-left" onclick="document.getElementById('sobreMsg').style.visibility = 'visible'">
@@ -645,11 +420,10 @@ animate();
 
   <!-- Right-aligned links -->
   <div class="topnav-right">
-    <a href="https://carlostrancoso.github.io/InscriptionEN/">EN / PT <img src="language.svg"/> </a>
+    <a href="#" id="languageButton">EN<img src="language.svg"/> </a>
   </div>
 
 </div>
-
   <canvas id="c"></canvas>
   <div class="loading-screen">
     <label for="loading-screen">A carregar...</label>

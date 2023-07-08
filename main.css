@@ -19,6 +19,7 @@ html, body
 
 #c 
 {
+    margin:0;
     width: 100%;
     height: 100%;
     display: block;
@@ -66,6 +67,19 @@ h3
           overflow: auto;
 
     }
+
+    .info  a
+    {
+            text-decoration: none;
+        color: yellow;
+    
+        }
+        .info  a:hover
+    {
+            text-decoration: underline;
+    
+        }
+    
 
 .info-button 
 {
@@ -173,16 +187,27 @@ overflow: hidden;
 {
 float: left;
 color: #f2f2f2;
-text-align: center;
-padding: 14px 16px;
+padding: 10px 20px;
 text-decoration: none;
-font-size: 17px;
+font-size: 25px;
+
 }
 
 .topnav a:hover
 {
 background-color: #ddd;
 color: black;
+cursor: pointer;
+padding-bottom: 10px;
+}
+
+
+.topnav-right 
+{
+  position: absolute; /* Add this property */
+  top: 0px;
+ top: -3px;
+  right: 0;
 }
 
 .topnav-centered {
@@ -195,17 +220,13 @@ color: black;
   font-size: 17px;
 }
 
-.topnav-right 
-{
-float: right;
-}
 
 @media screen and (max-width: 600px) 
 {
 .topnav a, .topnav-right a, .topnav-centered a 
 {
 
-font-size: 12px;
+font-size: 20px;
 
 }
 }
@@ -213,13 +234,14 @@ font-size: 12px;
 .topnav-right a img {
   height: 1em !important; /* Adjust the size of the icon */
   width: 1em !important; /* Adjust the size of the icon */
-  display: inline-block;
   vertical-align: middle;
 }
 
 .topnav-right a:hover img {
   fill: black; /* Change the fill color to black on hover */
   filter: invert(100%);
+  
+  
 }
 
 
@@ -247,7 +269,7 @@ img {
 }
 
 .button-prev {
-  display: none;
+  display: flex;
   justify-content: space-between;
   align-items: center;
 }
@@ -255,7 +277,7 @@ img {
 .button-prev button {
   position: absolute;
   top: 50%;
-  left: 0%;
+  left: 1%;
   background: transparent; /* Set background to transparent */
   border: none; /* Remove the border */
   box-shadow: none; /* Remove the box shadow */
@@ -263,8 +285,9 @@ img {
 
 .button-prev img,
 .button-prev svg {
-  height: 3.5em; /* Adjust the size of the icon */
-  width: 3.5em; /* Adjust the size of the icon */
+  height: 6em; /* Adjust the size of the icon */
+  width: 6em; /* Adjust the size of the icon */
+  cursor: pointer;
 }
 
 .button-next {
@@ -284,8 +307,8 @@ img {
 
 .button-next img,
 .button-next svg {
-  height: 3.5em; /* Adjust the size of the icon */
-  width: 3.5em; /* Adjust the size of the icon */
+  height: 6em; /* Adjust the size of the icon */
+  width: 6em; /* Adjust the size of the icon */
   cursor: pointer;
 }
 
