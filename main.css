@@ -156,6 +156,34 @@ h3
             color: #FFFFFF;
 }
 
+@media screen and (min-width: 1400px) {
+  #sobreMsg {
+      padding-left: 40%;
+      padding-right: 40%;
+  font-size: 15px;
+  line-height: 19px;
+  
+  }
+  .info {
+
+  font-size: 14px;
+  line-height: 17px;
+  
+  }
+
+  .button-prev svg {
+    height: 4em; /* Adjust the size of the icon */
+    width: 4em; /* Adjust the size of the icon */
+  }
+
+  .button-next svg {
+    height: 4em; /* Adjust the size of the icon */
+    width: 4em; /* Adjust the size of the icon */
+  }
+}
+
+
+
 /* Barra de topo */
 .topnav 
 {
@@ -199,26 +227,6 @@ padding-bottom: 10px;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 17px;
-}
-
-
-@media screen and (max-width: 800px) 
-{
-.topnav a, .topnav-right a, .topnav-centered a 
-{
-
-font-size: 17px;
-
-}
-
-h2
-    {
-      font-size: 17px;
-  }
-h3
-    {
-      font-size: 20px;
-  }
 }
 
 .topnav-right a img {
@@ -308,28 +316,21 @@ img {
   display: block;
 }
 
-@media screen and (min-width: 1400px) {
-  #sobreMsg {
-      padding-left: 40%;
-      padding-right: 40%;
-  font-size: 15px;
-  line-height: 19px;
-  
-  }
-  .info {
+@media screen and (max-width: 800px) 
+{
+.topnav a, .topnav-right a, .topnav-centered a 
+{
 
-  font-size: 14px;
-  line-height: 17px;
-  
-  }
+font-size: 17px;
 
-  .button-prev svg {
-    height: 4em; /* Adjust the size of the icon */
-    width: 4em; /* Adjust the size of the icon */
-  }
+}
 
-  .button-next svg {
-    height: 4em; /* Adjust the size of the icon */
-    width: 4em; /* Adjust the size of the icon */
+h2
+    {
+      font-size: 17px;
+  }
+h3
+    {
+      font-size: 20px;
   }
 }
