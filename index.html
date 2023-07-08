@@ -52,7 +52,7 @@ manager.onError = function ( url ) {
   var fov = 20;
   var aspect = 2;  // the canvas default
   var near = 1;
-  var far = 50;
+  var far = 60;
   var camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
   camera.position.set(0, 8, 30);
     
@@ -65,8 +65,8 @@ manager.onError = function ( url ) {
   controls.enablePan = true;
   controls.maxPolarAngle = 3*Math.PI/4;
   controls.minPolarAngle = Math.PI/4;
-  controls.minDistance = 10;
-  controls.maxDistance = far;
+  controls.minDistance = 15;
+  controls.maxDistance = far-10;
     
   //cena e fundo 
   //const bgcolor = new THREE.Color(0xEDEDED);
