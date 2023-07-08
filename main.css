@@ -156,24 +156,6 @@ h3
             color: #FFFFFF;
 }
 
-@media screen and (min-width: 1400px) {
-  #sobreMsg {
-      padding-left: 40%;
-      padding-right: 40%;
-  font-size: 15px;
-  line-height: 19px;
-  
-  }
-  .info {
-
-  font-size: 14px;
-  line-height: 17px;
-  
-  }
-}
-
-
-
 /* Barra de topo */
 .topnav 
 {
@@ -324,4 +306,30 @@ img {
 .close {
   margin: 0 auto;
   display: block;
+}
+
+@media screen and (min-width: 1400px) {
+  #sobreMsg {
+      padding-left: 40%;
+      padding-right: 40%;
+  font-size: 15px;
+  line-height: 19px;
+  
+  }
+  .info {
+
+  font-size: 14px;
+  line-height: 17px;
+  
+  }
+
+  .button-prev svg {
+    height: 4em; /* Adjust the size of the icon */
+    width: 4em; /* Adjust the size of the icon */
+  }
+
+  .button-next svg {
+    height: 4em; /* Adjust the size of the icon */
+    width: 4em; /* Adjust the size of the icon */
+  }
 }
