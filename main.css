@@ -333,4 +333,16 @@ h3
     {
       font-size: 20px;
   }
+  .button-prev img,
+  .button-prev svg {
+    height: 4em; /* Adjust the size of the icon */
+    width: 4em; /* Adjust the size of the icon */
+  }
+
+
+  .button-next img,
+  .button-prev svg {
+    height: 4em; /* Adjust the size of the icon */
+    width: 4em; /* Adjust the size of the icon */
+  }
 }
